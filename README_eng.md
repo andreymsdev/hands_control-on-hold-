@@ -1,4 +1,4 @@
-# 🤖 Hand-Control System: Gesture-Based PC Control
+# Hand-Control System: Gesture-Based PC Control
 
 ![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green?style=for-the-badge&logo=opencv)
