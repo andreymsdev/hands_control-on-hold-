@@ -3,7 +3,6 @@
 ![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green?style=for-the-badge&logo=opencv)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10.x-red?style=for-the-badge&logo=googles-fuchsia)
-![OS](https://img.shields.io/badge/OS-Linux%20(Arch)-yellowgreen?style=for-the-badge&logo=linux)
 
 ---
 
