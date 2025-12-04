@@ -5,9 +5,7 @@ import screeninfo
 import pulsectl
 import os
 
-# --- INICIALIZAÇÃO DE SISTEMA E FUNÇÕES DE CONTROLE ---
-
-# Tenta inicializar o PulseAudio. Se falhar, o controle de volume será desativado.
+# iniciar
 try:
     pulse = pulsectl.Pulse('volume-control')
 except Exception as e:
@@ -34,20 +32,14 @@ def diminuir_volume():
 
 def suspender_pc():
     print("PC Suspenso. Executando systemctl suspend...")
-    # ATENÇÃO: Este comando requer permissões ou configuração de polkit/sudo.
     os.system("systemctl suspend")
 
 def diminuir_brilho():
-    # Requer que 'brightnessctl' esteja instalado e que você tenha permissão.
     os.system("brightnessctl set 10%-")
-    # print("Brilho Diminuído em 10%") # Descomente para logar
-
 def aumentar_brilho():
     os.system("brightnessctl set +10%")
-    # print("Brilho Aumentado em 10%") # Descomente para logar
 
-# --- MEDIAPIPE E CONFIGURAÇÃO DE HARDWARE ---
-
+    #hands pipe config
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(
     static_image_mode=False,
@@ -57,15 +49,15 @@ hands = mp_hands.Hands(
 )
 mp_drawing = mp.solutions.drawing_utils
 
-# Dimensões da tela (usado apenas para log, não afeta o controle)
+# Dimensões da tela 
 monitors = screeninfo.get_monitors()
 if not monitors:
     print("AVISO: Erro ao obter dimensões da tela.")
 
-# Câmera (Usando índice 0, o mais comum)
+# Câmera 
 cap = cv2.VideoCapture(0) 
 if not cap.isOpened():
-    print("ERRO FATAL: Não foi possível abrir a câmera. Verifique o índice (0, 1, 2) e as permissões.")
+    print("ERRO: Não foi possível abrir a câmera.")
     exit()
 
 camera_width = 1280
@@ -73,7 +65,7 @@ camera_height = 720
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, camera_width)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_height)
 
-# --- FUNÇÃO DE GESTOS ---
+# Gestos
 
 def dedos_levantados(hand_landmarks, h):
     dedos = {}
@@ -87,11 +79,9 @@ def dedos_levantados(hand_landmarks, h):
     dedos["Mindinho"] = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].y < hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_PIP].y
     return dedos
 
-# --- CORREÇÃO DE EXIBIÇÃO ---
-# Esta linha força o backend do OpenCV a inicializar corretamente no Linux
 cv2.namedWindow("Hand Tracking", cv2.WINDOW_NORMAL) 
 
-# --- LOOP PRINCIPAL ---
+# Loop
 
 while True:
     ret, frame = cap.read()
@@ -147,6 +137,6 @@ while True:
     if cv2.waitKey(1) & 0xFF == 27:  # Esc
         break
 
-# --- LIMPEZA ---
+# Fim
 cap.release()
 cv2.destroyAllWindows()
