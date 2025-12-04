@@ -5,6 +5,8 @@ import screeninfo
 import pulsectl
 import os
 
+''' em desenvolvimento '''
+
 # iniciar
 try:
     pulse = pulsectl.Pulse('volume-control')
